@@ -1,7 +1,10 @@
 package com.example.yanji_oblig2
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
@@ -18,13 +21,10 @@ class MainActivity : AppCompatActivity() {
             try {
                 val info = Fuel.get(path).awaitString()
                 val partyList = gson.fromJson(info, Data::class.java )
-                val partyAdaper = PartyAdapter(partyList)
-
-
-                println( "the size is :" + partyList.parties?.javaClass?.name)
-                println("the name is : "+partyList.parties?.get(1)?.name)
-                println("the name is : "+partyList.parties?.get(2)?.name)
-                println("the name is : "+partyList.parties?.get(3)?.name)
+                val recView =  findViewById<RecyclerView>(R.id.recycle_view)
+                recView.adapter = PartyAdapter(partyList.parties)
+                recView.layoutManager = LinearLayoutManager(this@MainActivity)
+                recView.setHasFixedSize(true)
             } catch(exception: Exception) {
                 println("A network request exception was thrown: ${exception.message}")
             }

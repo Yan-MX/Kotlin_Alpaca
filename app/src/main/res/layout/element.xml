@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:padding="8dp">
-       <View
-           android:id="@+id/view"
-           android:layout_width="match_parent"
-           android:layout_height="50dp"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
         <TextView
             android:id="@+id/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alapala Name"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_below="@+id/view"
             android:gravity="center_horizontal|center_vertical"
-            android:layout_below="@+id/view"/>
+            android:text="@string/alapala_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circle_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_below="@+id/text_view"
-            android:layout_marginTop="-1dp"
             android:layout_centerHorizontal="true"
-             />
+            android:src="@drawable/ic_launcher_background"
+            />
 
         <TextView
             android:id="@+id/text_view2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Leader"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_below="@+id/circle_image"
             android:gravity="center_horizontal|center_vertical"
-            android:layout_below="@+id/circle_image"/>
+            android:text="@string/leader"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/test_view3"
+            android:id="@+id/text_view3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vote"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_below="@+id/text_view2"
             android:gravity="center_horizontal|center_vertical"
-            android:layout_below="@+id/text_view2"/>
-
+            android:text="@string/vote"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
