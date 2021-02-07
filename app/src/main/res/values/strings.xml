@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Yanji_oblig2</string>
+    <string name="alapala_name">Alapala Name</string>
+    <string name="leader">Leader: </string>
+    <string name="vote">Vote: </string>
+    <string name="Overall">Overall Results </string>
+    <string name="District1">Results in District 1 </string>
+    <string name="District2">Results in District 2 </string>
+    <string name="District3">Results in District 3 </string>
+
 </resources>

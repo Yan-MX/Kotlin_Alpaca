@@ -2,6 +2,7 @@ package com.example.yanji_oblig2
 
 import android.graphics.Color
 import android.provider.Settings.Global.getString
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
-public class PartyAdapter(private val parties: MutableList<AlpacaParty>?):
+public class PartyAdapter(private val parties: MutableList<AlpacaParty>?, val optionSelected: String, val vote1: MutableList<Vote>):
     RecyclerView.Adapter<PartyAdapter.ExampleViewHolder>() {
 
     class ExampleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -34,7 +35,14 @@ public class PartyAdapter(private val parties: MutableList<AlpacaParty>?):
             holder.nameView.text = currentItem.name
             Glide.with(holder.imageView).load(currentItem.img).into(holder.imageView)
             holder.leaderView.text = ("Leader: ${currentItem.leader}")
-            holder.voteView.setText(R.string.vote)
+            Log.d("hey2222", optionSelected)
+            Log.d("hey2222", "${optionSelected::class.simpleName}")
+            //if(optionSelected == "1"){
+                holder.voteView.setText("Votes: ${vote1.get(position).count}, Percentage: ${vote1.get(position).pert} % ")
+          //  }else{
+         //       holder.voteView.setText(R.string.vote)
+         //   }
+
         }
     }
 
