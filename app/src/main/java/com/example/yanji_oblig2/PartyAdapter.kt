@@ -35,7 +35,7 @@ public class PartyAdapter(private val parties: MutableList<AlpacaParty>?,  val v
             holder.nameView.text = currentItem.name
             Glide.with(holder.imageView).load(currentItem.img).into(holder.imageView)
             holder.leaderView.text = ("Leader: ${currentItem.leader}")
-                holder.voteView.setText("Votes: ${vote1.get(position).count}, Percentage: ${vote1.get(position).pert} % ")
+                holder.voteView.setText("Votes: ${vote1.get(position).count}    Percentage: ${vote1.get(position).pert} % ")
 
         }
     }

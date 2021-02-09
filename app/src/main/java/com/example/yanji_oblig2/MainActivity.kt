@@ -15,6 +15,7 @@ import com.github.kittinunf.fuel.coroutines.awaitString
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
+import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
     val scope = CoroutineScope(Dispatchers.IO + CoroutineName("MyScope"))
@@ -58,17 +59,54 @@ class MainActivity : AppCompatActivity() {
 
     //get votes
     suspend fun getVotes(index: Int) {
-        var url: String = ""
+        var url: String =""
+        Log.d("heyurl22", url)
         when (index) {
-            0 -> url = path1
-            1 -> url = path2
-            2 -> url = path3
+            0 -> {url = path1
+                getJsonVote(url)}
+            1 -> {url = path2
+                getJsonVote(url)
+            }
+            2 -> {
+                url = path3
+                getXmlVote(url)
+            }
             else -> Log.d("hey", "else is selected")
         }
+        //
+    }
+    suspend fun getXmlVote(url:String){
         var distric = mutableListOf<Vote>(
-                Vote(0, 0),
-                Vote(0, 0), Vote(0, 0),
-                Vote(0, 0),
+            Vote(0, 0),
+            Vote(0, 0), Vote(0, 0),
+            Vote(0, 0),
+        )
+       val result = khttp.get(url).text
+        Log.d("heyXml","fetch xml ok")
+        val inputStream:InputStream = result.byteInputStream()
+        val listofParty= XmlParser().parse(inputStream)
+        Log.d("heyXml2",listofParty.toString())
+        Log.d("heyXml2","xml parser ok")
+        var sum= 0
+        for (party in listofParty) {
+            if(party.id >= 1) {
+                distric.get(party.id - 1).count = party.votes
+                sum += party.votes
+            }else{
+                Log.d("heyXML3","loop error")
+            }
+        }
+        for (vote in distric) {
+            vote.pert = vote.count * 100 / sum
+        }
+        scope.launch { getParty(distric) }
+
+    }
+    suspend fun getJsonVote(url:String){
+        var distric = mutableListOf<Vote>(
+            Vote(0, 0),
+            Vote(0, 0), Vote(0, 0),
+            Vote(0, 0),
         )
         Log.d("heyurl", url)
         try {

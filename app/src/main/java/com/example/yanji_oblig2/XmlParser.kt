@@ -41,9 +41,9 @@ class XmlParser {
 
     @Throws(XmlPullParserException::class, IOException::class)
     private fun readEntry(parser: XmlPullParser): party {
-        parser.require(XmlPullParser.START_TAG, ns, "districtThree")
-        var id: Int? = null
-        var votes: Int? = null
+        parser.require(XmlPullParser.START_TAG, ns, "party")
+        var id: Int = 0
+        var votes: Int= 0
 
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.eventType != XmlPullParser.START_TAG) {
@@ -58,19 +58,19 @@ class XmlParser {
         return party(id, votes)
     }
     @Throws(IOException::class, XmlPullParserException::class)
-    private fun readID(parser: XmlPullParser): Int? {
+    private fun readID(parser: XmlPullParser): Int {
         parser.require(XmlPullParser.START_TAG, ns, "id")
         val id = readText(parser)
         parser.require(XmlPullParser.END_TAG, ns, "id")
-        return id.toIntOrNull()
+        return id.toInt()
     }
 
     @Throws(IOException::class, XmlPullParserException::class)
-    private fun readVotes(parser: XmlPullParser): Int? {
+    private fun readVotes(parser: XmlPullParser): Int {
         parser.require(XmlPullParser.START_TAG, ns, "votes")
         val votes = readText(parser)
         parser.require(XmlPullParser.END_TAG, ns, "votes")
-        return votes.toIntOrNull()
+        return votes.toInt()
     }
 
     @Throws(IOException::class, XmlPullParserException::class)
@@ -98,4 +98,4 @@ class XmlParser {
     }
 
 }
-data class party (val id:Int?, val votes:Int?)
+data class party (val id:Int, val votes:Int)
