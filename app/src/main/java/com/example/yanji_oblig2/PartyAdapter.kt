@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
-public class PartyAdapter(private val parties: MutableList<AlpacaParty>?,  val vote1: MutableList<Vote>):
+public class PartyAdapter( val cards: MutableList<CardInfo>):
     RecyclerView.Adapter<PartyAdapter.ExampleViewHolder>() {
 
     class ExampleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -29,18 +29,18 @@ public class PartyAdapter(private val parties: MutableList<AlpacaParty>?,  val v
     }
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
-        val currentItem = parties?.get(position)
+        val currentItem = cards.get(position)
         if (currentItem != null) {
             holder.colorView.setBackgroundColor(Color.parseColor(currentItem.color))
             holder.nameView.text = currentItem.name
             Glide.with(holder.imageView).load(currentItem.img).into(holder.imageView)
             holder.leaderView.text = ("Leader: ${currentItem.leader}")
-                holder.voteView.setText("Votes: ${vote1.get(position).count}    Percentage: ${vote1.get(position).pert} % ")
+                holder.voteView.setText("Votes: ${currentItem.count}    Percentage: ${currentItem.pert} % ")
 
         }
     }
 
-    override fun getItemCount(): Int = parties?.size!!
+    override fun getItemCount(): Int = cards.size!!
 
 
 
