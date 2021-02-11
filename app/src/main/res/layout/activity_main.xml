@@ -14,6 +14,15 @@
         style="@style/Widget.AppCompat.DropDownItem.Spinner"
 
    />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"
+        android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view"
@@ -22,6 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/element"
-        android:layout_below="@+id/spinner"/>
+        android:layout_below="@+id/progressBar"/>
+
+
 
 </RelativeLayout>

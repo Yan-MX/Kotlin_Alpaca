@@ -4,10 +4,7 @@ package com.example.yanji_oblig2
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +14,8 @@ import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import java.io.InputStream
+import java.lang.reflect.Modifier
+import kotlinx.coroutines.withContext as withContext1
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         "https://www.uio.no/studier/emner/matnat/ifi/IN2000/v21/obligatoriske-oppgaver/alpakkaland/district3.xml"
 
     val gson = Gson()
+    var loading=false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity() {
 
     //the main function, call get votes, partyinfo, combine
     suspend fun showCards(index: Int) {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        withContext1(Main) {
+            progressBar.visibility= View.VISIBLE
+        }
         var url: String = ""
         var district = mutableListOf<Vote>()
         when (index) {
@@ -88,8 +93,11 @@ class MainActivity : AppCompatActivity() {
         }
         val partyList = getParty()
         val combine = combine(partyList, district)
-        withContext(Main) {
+
+
+        withContext1(Main) {
             setUpAdapter(combine)
+            progressBar.visibility= View.INVISIBLE
         }
     }
 
@@ -181,11 +189,11 @@ class MainActivity : AppCompatActivity() {
 
     //combine vote and partyinfo into one list of objects
     suspend fun combine(partyList: Data, district: MutableList<Vote>): MutableList<CardInfo> {
-        var combine = mutableListOf<CardInfo>()
+        val combine = mutableListOf<CardInfo>()
         for (index in 0..3) {
             val party = partyList.parties?.get(index)
             val vote = district.get(index)
-            var card = CardInfo(
+            val card = CardInfo(
                 party?.id,
                 party?.name,
                 party?.leader,

@@ -30,14 +30,12 @@ public class PartyAdapter( val cards: MutableList<CardInfo>):
 
     override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
         val currentItem = cards.get(position)
-        if (currentItem != null) {
-            holder.colorView.setBackgroundColor(Color.parseColor(currentItem.color))
-            holder.nameView.text = currentItem.name
-            Glide.with(holder.imageView).load(currentItem.img).into(holder.imageView)
-            holder.leaderView.text = ("Leader: ${currentItem.leader}")
-                holder.voteView.setText("Votes: ${currentItem.count}    Percentage: ${currentItem.pert} % ")
+        holder.colorView.setBackgroundColor(Color.parseColor(currentItem.color))
+        holder.nameView.text = currentItem.name
+        Glide.with(holder.imageView).load(currentItem.img).into(holder.imageView)
+        holder.leaderView.text = ("Leader: ${currentItem.leader}")
+        holder.voteView.setText("Votes: ${currentItem.count}    Percentage: ${currentItem.pert} % ")
 
-        }
     }
 
     override fun getItemCount(): Int = cards.size!!
